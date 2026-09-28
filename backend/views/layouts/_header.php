@@ -14,6 +14,10 @@ $items = [
         'url' => ['/site/index'],
     ],
     [
+        'label' => 'Gii',
+        'url' => ['/gii'],
+    ],
+    [
         'label' => 'Login',
         'url' => ['/site/login'],
         'visible' => Yii::$app->user->isGuest,

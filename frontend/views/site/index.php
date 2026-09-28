@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
+$this->title = 'Магазин';
 $this->params['meta_description'] = 'A high-performance PHP framework best for developing web applications. Fast, secure, and professional.';
 $this->params['meta_keywords'] = 'yii, yii2, php, framework, web application, high-performance';
 ?>
