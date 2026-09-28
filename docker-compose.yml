@@ -9,6 +9,8 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+    depends_on:
+      - mysql
 
   backend:
     build: backend
@@ -19,14 +21,18 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+    depends_on:
+      - mysql
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.4
+    container_name: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=yii2advanced
-      - MYSQL_USER=yii2advanced
-      - MYSQL_PASSWORD=secret
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: lesson
+      MYSQL_PASSWORD: 123456789
+    ports:
+      - "3306:3306"
 
   #pgsql:
   #  image: postgres:16

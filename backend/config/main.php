@@ -38,14 +38,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+
+                '<action:[a-zA-Z0-9_-]+>' => 'site/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
