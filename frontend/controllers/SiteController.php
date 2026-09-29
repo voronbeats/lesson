@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace frontend\controllers;
 
 use common\models\LoginForm;
+use common\models\Product;
+use common\services\AvitoParser;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
@@ -95,7 +97,10 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        return $this->render('index');
+        $products = Product::find()->all();
+        return $this->render('index', [
+            'products' => $products
+        ]);
     }
 
     /**
