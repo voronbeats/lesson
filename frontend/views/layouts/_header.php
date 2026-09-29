@@ -10,29 +10,29 @@ use yii\helpers\Html;
 
 $items = [
     [
-        'label' => 'Home',
+        'label' => 'Домой',
         'url' => ['/site/index'],
     ],
     [
-        'label' => 'About',
+        'label' => 'О нас',
         'url' => ['/site/about'],
     ],
     [
-        'label' => 'Contact',
+        'label' => 'Контакты',
         'url' => ['/site/contact'],
     ],
     [
-        'label' => 'Signup',
+        'label' => 'Зарегистрироваться',
         'url' => ['/site/signup'],
         'visible' => Yii::$app->user->isGuest,
     ],
     [
-        'label' => 'Login',
+        'label' => 'Войти',
         'url' => ['/site/login'],
         'visible' => Yii::$app->user->isGuest,
     ],
     [
-        'label' => 'Logout (' . Html::encode(Yii::$app->user->identity?->username) . ')',
+        'label' => 'Выйти (' . Html::encode(Yii::$app->user->identity?->username) . ')',
         'url' => ['/site/logout'],
         'linkOptions' => [
             'data-method' => 'post',
@@ -46,7 +46,7 @@ $items = [
 <header id="header">
     <?php NavBar::begin(
         [
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'AmazingShop',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ],

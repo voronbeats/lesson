@@ -1,4 +1,4 @@
-main > .container {
+main>.container {
     padding: 70px 15px 20px;
     display: flex;
     flex-direction: column;
@@ -11,7 +11,8 @@ main > .container {
 }
 
 /* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
+a.asc:after,
+a.desc:after {
     content: '';
     left: 3px;
     display: inline-block;
@@ -36,6 +37,26 @@ a.desc:after {
     white-space: nowrap;
 }
 
+.search-container {
+    position: relative;
+}
+
+.search-input {
+    height: 50px;
+    border-radius: 30px;
+    padding-left: 35px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
 .hint-block {
     display: block;
     margin-top: 5px;
@@ -51,8 +72,8 @@ a.desc:after {
 }
 
 /* align navbar brand baseline with nav links */
-.navbar > .container,
-.navbar > .container-fluid {
+.navbar>.container,
+.navbar>.container-fluid {
     align-items: baseline;
 }
 
@@ -78,10 +99,17 @@ a.desc:after {
 
 
 /* footer logo: light logo by default (light bg-body-tertiary), dark logo for dark theme */
-.footer-logo-dark { display: none; }
+.footer-logo-dark {
+    display: none;
+}
 
-[data-bs-theme="dark"] .footer-logo-light { display: none; }
-[data-bs-theme="dark"] .footer-logo-dark  { display: inline-block; }
+[data-bs-theme="dark"] .footer-logo-light {
+    display: none;
+}
+
+[data-bs-theme="dark"] .footer-logo-dark {
+    display: inline-block;
+}
 
 /* Yii brand button */
 .btn-yii {
@@ -134,7 +162,7 @@ a.desc:after {
 
 /* validation styles for browsers that support :has() */
 @supports selector(.input-group:has(.is-invalid)) {
-    .form-card .input-group:has(.is-invalid) ~ .invalid-feedback {
+    .form-card .input-group:has(.is-invalid)~.invalid-feedback {
         display: block;
         margin-top: .35rem;
         margin-bottom: .5rem;
@@ -200,7 +228,7 @@ a.desc:after {
 
 /* validation styles for login split card (browsers with :has()) */
 @supports selector(.input-group:has(.is-invalid)) {
-    .login-split-card .input-group:has(.is-invalid) ~ .invalid-feedback {
+    .login-split-card .input-group:has(.is-invalid)~.invalid-feedback {
         display: block;
         margin-top: .35rem;
         margin-bottom: .5rem;
@@ -345,6 +373,7 @@ a.desc:after {
 }
 
 @media (min-width: 576px) {
+
     .site-error .site-error-content,
     .site-about .site-about-content {
         max-width: 80%;
@@ -352,6 +381,7 @@ a.desc:after {
 }
 
 @media (min-width: 768px) {
+
     .site-error .site-error-content,
     .site-about .site-about-content {
         max-width: 60%;
@@ -359,6 +389,7 @@ a.desc:after {
 }
 
 @media (min-width: 992px) {
+
     .site-error .site-error-content,
     .site-about .site-about-content {
         max-width: 50%;
