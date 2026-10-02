@@ -17,6 +17,7 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\captcha\CaptchaAction;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\mail\MailerInterface;
@@ -98,9 +99,42 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $products = Product::find()->where(['<>', 'status', 2])->all();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find()
+                ->where(['<>', 'status', 2]),
+            'pagination' => [
+                'pageSize' => 9, // количество товаров на странице
+            ],
+        ]);
+        
         return $this->render('index', [
-            'products' => $products,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionSearch($search = '')
+    {
+        $query = Product::find()
+            ->where(['<>', 'status', 2]);
+
+        if ($search !== '') {
+            $query->andWhere(['like', 'name', $search]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 9,
+            ],
+        ]);
+
+        if ($dataProvider->getTotalCount() == 0) {
+            return 'Товары не найдены';
+        }
+
+        return $this->renderPartial('_products', [
+            'dataProvider' => $dataProvider,
+            'search' => $search,
         ]);
     }
 

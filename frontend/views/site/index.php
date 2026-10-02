@@ -5,10 +5,8 @@ declare(strict_types=1);
 /** @var yii\web\View $this 
  */
 
-use common\models\ProductImage;
-use yii\grid\GridView;
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 
 $this->title = 'Магазин';
 $this->params['meta_description'] = 'A high-performance PHP framework best for developing web applications. Fast, secure, and professional.';
@@ -29,33 +27,38 @@ $this->params['meta_keywords'] = 'yii, yii2, php, framework, web application, hi
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="search-container">
-                    <input type="text" class="form-control search-input" placeholder="Search...">
+                    <input type="text" id="product-search" class="form-control search-input" placeholder="Поиск товара...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <?php foreach ($products as $product): ?>
+    <div id="products-list" class="row">
+        <?php foreach ($dataProvider->getModels() as $product): ?>
             <div class="col-sm-7 col-lg-4 col-md-6">
                 <div class="card" style="padding: 20px; margin: 20px; width: 18rem;">
-                    <?= Html::img(
-                        Yii::getAlias($product->image),
-                        [
-                            'class' => 'mb-4',
-                            'height' => 40,
-                        ],
-                    ) ?>
+                    <?= Html::img(Yii::getAlias($product->image), ['class' => 'mb-4', 'height' => 40,]) ?>
                     <div class="card-body">
-                        <h4 class="card-title"><?= $product->name ?></h4>
-                        <p class="card-text"><?= $product->ShortDescription ?></p>
+                        <h4 class="card-title"> <?= Html::encode($product->name) ?> </h4>
+                        <p class="card-text"> <?= Html::encode($product->ShortDescription) ?> </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <a href="#" class="btn btn-primary">Купить</a>
-                            <p class="card-text"><?= $product->price ?> $</p>
+                            <p class="card-text"> <?= Html::encode($product->price) ?> $ </p>
                         </div>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
+        <?= LinkPager::widget([
+            'pagination' => $dataProvider->pagination,
+            'options' => [
+                'class' => 'pagination justify-content-center',
+            ],
+            'linkOptions' => [
+                'class' => 'page-link',
+            ],
+        ]) ?>
+
     </div>
+        
 </div>
