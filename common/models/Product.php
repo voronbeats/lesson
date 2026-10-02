@@ -49,6 +49,14 @@ class Product extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $statusProduct =
+    [
+        '1' => 'Активен',
+        '2' => 'Не активен',
+        '3' => 'Нет в наличии'
+    ];
+
     public function rules()
     {
         return [
@@ -74,15 +82,15 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'slug' => 'Slug',
             'sku' => 'Sku',
-            'description' => 'Description',
-            'category_id' => 'Category ID',
-            'price' => 'Price',
-            'old_price' => 'Old Price',
-            'quantity' => 'Quantity',
-            'status' => 'Status',
+            'description' => 'Описание',
+            'category_id' => 'Категория товара',
+            'price' => 'Цена',
+            'old_price' => 'Старая цена',
+            'quantity' => 'Кол-во в наличии',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -95,8 +103,29 @@ class Product extends \yii\db\ActiveRecord
                 $this->description,
                 20
             );
-        }else{
+        } else {
             return 'Описание отсутствует.';
+        }
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    public function getStatusName()
+    {
+        if ($this->status) {
+            return $this->statusProduct[$this->status];
+        } else {
+            return '-';
+        }
+    }
+
+    public function getImage()
+    {
+        if ($image = ProductImage::find()->where(['product_id' => $this->id])->one()) {
+            return $image->image;
         }
     }
 }

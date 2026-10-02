@@ -5,12 +5,18 @@ declare(strict_types=1);
 /** @var yii\web\View $this 
  */
 
+use common\models\ProductImage;
+use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 
 $this->title = 'Магазин';
 $this->params['meta_description'] = 'A high-performance PHP framework best for developing web applications. Fast, secure, and professional.';
 $this->params['meta_keywords'] = 'yii, yii2, php, framework, web application, high-performance';
+
+
 ?>
+
 <div class="site-index">
     <div class="m-5 p-5 text-center">
         <div class="card-body">
@@ -33,7 +39,13 @@ $this->params['meta_keywords'] = 'yii, yii2, php, framework, web application, hi
         <?php foreach ($products as $product): ?>
             <div class="col-sm-7 col-lg-4 col-md-6">
                 <div class="card" style="padding: 20px; margin: 20px; width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <?= Html::img(
+                        Yii::getAlias($product->image),
+                        [
+                            'class' => 'mb-4',
+                            'height' => 40,
+                        ],
+                    ) ?>
                     <div class="card-body">
                         <h4 class="card-title"><?= $product->name ?></h4>
                         <p class="card-text"><?= $product->ShortDescription ?></p>

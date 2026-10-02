@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var common\models\ProductSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -22,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,23 +32,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'name',
-            'slug',
-            'sku',
-            'description:ntext',
-            //'category_id',
-            //'price',
+            // 'slug',
+            // 'sku',
+            [
+                'attribute' => 'description',
+                'format' => 'text',
+                'value' => function (Product $model) {
+                    return $model->shortDescription;
+                },
+            ],
+            [
+                'attribute' => 'category_id',
+                'value' => function (Product $model) {
+                    return $model->category
+                        ? $model->category->name
+                        : '-';
+                },
+            ],
+            'price',
             //'old_price',
             //'quantity',
-            //'status',
+            [
+                'attribute' => 'status',
+                'value' => function (Product $model) {
+                    return $model->statusName;
+                }
+            ],
             //'created_at',
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

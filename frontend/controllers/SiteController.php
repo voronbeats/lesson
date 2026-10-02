@@ -6,6 +6,7 @@ namespace frontend\controllers;
 
 use common\models\LoginForm;
 use common\models\Product;
+use common\models\ProductImage;
 use common\services\AvitoParser;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -97,9 +98,9 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $products = Product::find()->all();
+        $products = Product::find()->where(['<>', 'status', 2])->all();
         return $this->render('index', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 
